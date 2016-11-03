@@ -1,0 +1,5 @@
+localhost/zerocetron/
+localhost/zerocetron/pozen/123
+
+http://localhost/zerocetron/zflight/
+http://localhost/zerocetron/zflight/pozen/123
