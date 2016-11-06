@@ -50,6 +50,17 @@ var_dump($qcmember->getMemberInfo('00000701'));
 Flight::route('/', function(){
    echo 'hello world!<hr>';
 });
+
+//也不过是定义一下就可以了
+Flight::view()->path = __DIR__. '/admin/views';
+
+Flight::route('/zflight/zit/qcsoft/@c(/@a)', function($c, $a){
+		$ctrl = "zit\\QcSoft\\admin\\controllers\\" . ucfirst($c);
+		Flight::register('controller', $ctrl);
+		$a || $a = 'index';
+		$qcmember = Flight::controller()->{$a}();
+});
+
 //
 //
 //$pozen = new zit\Pozen();
