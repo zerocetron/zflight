@@ -8,25 +8,13 @@ $database = new medoo([
     'password' => 'root',
     'charset' => 'utf8'
 ]);
-
-$database2 = new medoo([
-    'database_type' => 'mssql',
-    'database_name' => 'zdata',
-    'server' => '183.3.135.77',
-    'port' => '8899',
-    'username' => 'fsuser',
-    'password' => 'abc123',
-    'charset' => 'utf8'
-]);
  
 
-Flight::set('db2', $database2);
 Flight::set('db', $database);
 
 
-$qcmember = new zit\qcsoft\QcMember();
-//var_dump($qcmember->getMemberList());
-//var_dump($qcmember->syncMembers(1));
+$qcmember = new zit\QcSoft\QcMember();
+var_dump($qcmember->getMemberList());
 var_dump($qcmember->getMemberInfo('00000701'));
 
 //
@@ -42,14 +30,14 @@ var_dump($qcmember->getMemberInfo('00000701'));
 //var_dump($datas);
 
 Flight::route('/', function(){
-//   echo 'hello world!<hr>';
+   echo 'hello world!<hr>';
 });
 
 //也不过是定义一下就可以了
 Flight::view()->path = __DIR__. '/admin/views';
 
 Flight::route('/zflight/zit/qcsoft/@c(/@a)', function($c, $a){
-		$ctrl = "zit\\qcsoft\\admin\\controllers\\" . ucfirst($c);
+		$ctrl = "zit\\QcSoft\\admin\\controllers\\" . ucfirst($c);
 		Flight::register('controller', $ctrl);
 		$a || $a = 'index';
 		$qcmember = Flight::controller()->{$a}();
