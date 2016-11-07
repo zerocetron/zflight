@@ -9,26 +9,8 @@ $database = new medoo([
     'charset' => 'utf8'
 ]);
  
-//        $dbName = "sqlsrv:Server=183.3.135.77,8899;Database=zdata";   
-//        $dbUser = "fsuser";   
-//        $dbPassword = "abc123";   
-//        $db = new PDO($dbName, $dbUser, $dbPassword);       
-//        if ($db)   
-//        {       
-//                  echo "database connect succeed.<br />";   
-//        }
-//  exit;
-$database2 = new medoo([
-    'database_type' => 'mssql',
-    'database_name' => 'zdata',
-    'server' => '183.3.135.77',
-	'port' => '8899',
-    'username' => 'fsuser',
-    'password' => 'abc123',
-    'charset' => 'utf8'
-]);
+
 Flight::set('db', $database);
-Flight::set('db2', $database2);
 
 
 $qcmember = new zit\QcSoft\QcMember();
