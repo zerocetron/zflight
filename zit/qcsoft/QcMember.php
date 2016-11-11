@@ -1,5 +1,5 @@
 <?php
-namespace zit\QcSoft;
+namespace zit\qcsoft;
 
 use Flight;
 
