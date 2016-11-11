@@ -1,5 +1,5 @@
 <?php
-namespace zit\QcSoft\admin\controllers;
+namespace zit\qcsoft\admin\controllers;
 
 use Flight;
 
