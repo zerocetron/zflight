@@ -2,14 +2,19 @@
 require 'vendor/autoload.php';
 //require 'flight/Flight.php';
 //// Initialize
-//$database = new medoo([
-//    'database_type' => 'mysql',
-//    'database_name' => 'we7',
-//    'server' => 'localhost',
-//    'username' => 'root',
-//    'password' => 'root',
-//    'charset' => 'utf8'
-//]);
+$database = new medoo([
+    'database_type' => 'mysql',
+    'database_name' => 'we7',
+    'server' => '',
+    'username' => 'root',
+    'password' => 'root',
+	'option' => [PDO::ATTR_TIMEOUT => 3],
+    'charset' => 'utf8'
+]);
+if(empty($database->PDO)) {
+	echo 3;exit;
+}
+var_dump(1);exit;
 //
 //$database->insert('ims_account', [
 //	'uniacid' => 2,

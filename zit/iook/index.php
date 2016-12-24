@@ -1,13 +1,7 @@
 <?php
 require '../../vendor/autoload.php';
-$db = new medoo([
-    'database_type' => 'mysql',
-    'database_name' => 'iook',
-    'server' => 'localhost',
-    'username' => 'root',
-    'password' => 'root',
-    'charset' => 'utf8'
-]);
+$db = include(__DIR__.'/config.ini.php');
+$message = @$_GET['message']?:'';
 
 $level_names = $db->select('t_level_map', ['level', 'power', 'name3', '_name'], ['ORDER'=>['level'=>'ASC']]);
 
@@ -61,9 +55,11 @@ if(@$_GET['do'] == 'pj') {
 				$day_power = $user->regular_power - $user->total_power - $user->total_guilt;
 				$day_guilt = $user->regular_guilt - $user->total_guilt;
 				if($_GET['class'] == 'iguilt' && $_GET['power'] > $day_guilt) {
+					$message .= '惩戒已超限！当日最高可用惩戒：'.$day_guilt;
 					goto html;
 				}
 				if($_GET['class'] == 'ipower' && $_GET['power'] > $day_power) {
+					$message .= '奖赏已超限！当日最高可用奖赏：'.$day_power;
 					goto html;
 				}
 	//插入记录
@@ -81,9 +77,13 @@ if(@$_GET['do'] == 'pj') {
 					]);
 				//重定向到本页【如果是post就不用】
 
-				header('Location:index.php');
+				header('Location:index.php?message=' . '奖惩操作成功');
 
+		} else {
+		$message .= '今天已实施奖惩，不可出尔反尔！';
 		}
+	} else {
+		$message .= '非监督人时间(12:00~14:00)!';
 	}
 }
 
@@ -265,10 +265,24 @@ height: 12px;
 </div>
 
 
+<div style="text-align:left;padding:10px 50px;line-height:20px;text-decoration: underline;">
+	<p>
+		<b>发令人：</b>17:00~09:00 <u style="color: #0D47A1" title="蓝色，天空，太阳">¤</u><br />
+		<b>执行人：</b>09:00~17:00 <u style="color: #9C27B0" title="执行人给予紫色，代表女性，听从，服从，顺从">◆</u><br />
+		<b>监督人：</b>12:00~14:00 <u style="color:black" title="黑色，地下，阎王，公正无私">▲</u><br />
+	</p>
+</div>
 
 
 
 
 </div>
+<script>
+<?php
+	if(! empty($message)) {
+		echo 'alert("'.$message.'")';
+	}
+?>
+</script>
 </body>
 </html>
